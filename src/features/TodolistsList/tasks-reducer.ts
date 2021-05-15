@@ -50,7 +50,8 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'CHANGE-TASK-ENTITY-STATUS':
             return {
                 ...state,
-                [action.todolistId]: state[action.todolistId].map(t => t.id === action.taskId ? {...t, entityStatus: action.entityStatus } :  t
+                [action.todolistId]: state[action.todolistId]
+                    .map(t => t.id === action.taskId ? {...t, entityStatus: action.entityStatus } :  t
                 )
             }
         default:
@@ -86,7 +87,7 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionsT
 }
 export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'));
-    dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'));
+    dispatch(changeTaskEntityStatusAC(todolistId, taskId,'loading'));
     todolistsAPI.deleteTask(todolistId, taskId)
         .then(res => {
             if (res.data.resultCode === 0) {
@@ -100,7 +101,7 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
             handleServerNetworkError(err, dispatch)
         })
         .finally(() => {
-            dispatch(changeTodolistEntityStatusAC(todolistId, 'idle'));
+            dispatch(changeTaskEntityStatusAC(todolistId, taskId,'idle'));
         })
 }
 
@@ -138,7 +139,7 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
             ...domainModel
         }
         dispatch(setAppStatusAC('loading'));
-        dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'));
+        dispatch(changeTaskEntityStatusAC(todolistId, taskId,'loading'));
         todolistsAPI.updateTask(todolistId, taskId, apiModel)
             .then(res => {
                 if (res.data.resultCode === 0) {
@@ -152,7 +153,7 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
                 handleServerNetworkError(err, dispatch)
             })
             .finally(() => {
-                dispatch(changeTodolistEntityStatusAC(todolistId, 'idle'));
+                dispatch(changeTaskEntityStatusAC(todolistId, taskId,'idle'));
             })
     }
 
