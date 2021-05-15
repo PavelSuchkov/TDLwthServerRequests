@@ -48,10 +48,11 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             return {...state, [action.todolistId]: action.tasks}
 
         case 'CHANGE-TASK-ENTITY-STATUS':
-    /*        return {
+            return {
                 ...state,
-                [action.todolistId]: action.taskId
-            }*/
+                [action.todolistId]: state[action.todolistId].map(t => t.id === action.taskId ? {...t, entityStatus: action.entityStatus } :  t
+                )
+            }
         default:
             return state
     }
