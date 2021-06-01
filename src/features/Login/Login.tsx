@@ -45,7 +45,7 @@ export const Login = () => {
         onSubmit: values => {
             dispatch(loginTC(values))
             formik.resetForm();
-        },
+        }
     })
 
     if(isLoggedIn) {
@@ -72,7 +72,6 @@ export const Login = () => {
                         <TextField
                             label="Email"
                             margin="normal"
-
                             {...formik.getFieldProps("email")}
                         />
                         {formik.touched.email && formik.errors.email ?
