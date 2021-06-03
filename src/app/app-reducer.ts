@@ -36,26 +36,9 @@ const slice = createSlice({
 
 })
 
-export const appReducer = slice.reducer; /*(state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-    switch (action.type) {
-        case 'APP/SET-STATUS':
-            return {...state, status: action.status}
-        case 'APP/SET-ERROR':
-            return {...state, error: action.error}
-
-        case 'APP/SET-IS-INITIALIZED':
-            return {...state, isInitialized: action.isInitialized}
-        default:
-            return {...state}
-    }
-}*/
+export const appReducer = slice.reducer;
 export const {setIsInitializedAC, setAppStatusAC, setAppErrorAC} = slice.actions
 
-//
-// export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
-// export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
-// export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
-//
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 export type setIsInitializedActionType = ReturnType<typeof setIsInitializedAC>
@@ -72,8 +55,3 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
             dispatch(setIsInitializedAC({isInitialized: true}))
         })
 }
-//
-// type ActionsType =
-//     | SetAppErrorActionType
-//     | SetAppStatusActionType
-//     | setIsInitializedActionType
