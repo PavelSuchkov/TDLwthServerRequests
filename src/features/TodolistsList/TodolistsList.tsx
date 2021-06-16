@@ -32,7 +32,7 @@ export const TodolistsList: React.FC = () => {
     }, [])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
-        const thunk = removeTaskTC(id, todolistId)
+        const thunk = removeTaskTC({taskId: id, todolistId})
         dispatch(thunk)
     }, [])
 
